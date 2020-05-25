@@ -19,7 +19,7 @@ public class Logout extends Command {
         HttpSession session = request.getSession();
 
         session.invalidate(); //Gør session ugyldig og fjerner objekter (bruger)
-
+        //Sætter attributter til null
         request.getServletContext().setAttribute("width", null);
         request.getServletContext().setAttribute("length", null);
         request.getServletContext().setAttribute("height", null);
