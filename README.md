@@ -1,10 +1,5 @@
 ## Dokumentation
-
-Gruppe 407:
-Anne-Maj
-Claes
-Jonas
-Casper
+Backup af orig.projekt 25052020
 
 # Fog
 # TempFog
