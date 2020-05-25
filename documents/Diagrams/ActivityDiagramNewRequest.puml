@@ -1,0 +1,14 @@
+@startuml
+
+Title Activity diagram "New request"
+State index.jsp
+State "error message" as error
+State confirmation.jsp
+
+[*] -> index.jsp
+index.jsp --> confirmation.jsp
+error --> index.jsp
+index.jsp --> error
+confirmation.jsp --> [*]
+
+@enduml

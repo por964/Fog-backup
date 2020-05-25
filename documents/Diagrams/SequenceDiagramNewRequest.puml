@@ -1,0 +1,33 @@
+@startuml
+
+title Sequence diagram "New request"
+
+actor User
+boundary index.jsp
+boundary confirmation.jsp
+participant customerpage.jsp
+participant FrontController
+participant Command
+participant Request
+participant LogicFacade
+participant UserMapper
+database Database
+
+User -> index.jsp : request
+index.jsp -> FrontController : doPost()
+FrontController -> Command : processRequest()
+Command -> Request :
+Request -> LogicFacade : createRequest()
+LogicFacade -> UserMapper : createRequest()
+UserMapper -> Database : executeUpdate()
+Database -> UserMapper : resultset
+UserMapper -> UserMapper : validate resultset
+UserMapper -> LogicFacade : OK
+LogicFacade -> Request
+Request -> confirmation.jsp
+confirmation.jsp -> User : Success!
+UserMapper -> LogicFacade : Not OK (alternative flow)
+LogicFacade -> Request
+Request -> confirmation.jsp
+confirmation.jsp -> User : Please try again!
+@enduml

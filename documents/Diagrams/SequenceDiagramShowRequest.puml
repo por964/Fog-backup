@@ -1,0 +1,35 @@
+@startuml
+
+title Sequence diagram "Show requests"
+
+actor User
+boundary showRequests.jsp
+boundary billofmaterials.jsp
+boundary adminpage.jsp
+participant customerpage.jsp
+participant FrontController
+participant Command
+participant BillOfMaterials
+participant LogicFacade
+participant Calculator
+participant UserMapper
+database Database
+
+User -> showRequests.jsp : request
+showRequests.jsp -> FrontController : doPost()
+FrontController -> Command : processRequest()
+Command -> BillOfMaterials :
+BillOfMaterials -> LogicFacade : showRequest()
+LogicFacade -> UserMapper : showRequest()
+UserMapper -> Database : executeUpdate()
+Database -> UserMapper : resultset
+UserMapper -> UserMapper : validate resultset
+UserMapper -> LogicFacade : OK
+LogicFacade -> BillOfMaterials
+BillOfMaterials -> Calculator : bomCalculator()
+Calculator -> BillOfMaterials : bom
+BillOfMaterials -> billofmaterials.jsp : Succes!
+billofmaterials.jsp -> User : Bill of materials
+BillOfMaterials -> adminpage.jsp : Failure (alternative flow)
+adminpage.jsp -> User : Please try again!
+@enduml
